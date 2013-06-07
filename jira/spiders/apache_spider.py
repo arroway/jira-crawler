@@ -47,7 +47,7 @@ class ApacheJiraSpider(BaseSpider):
             n = re.match(r".*\\n\s*(\w+)\\n.*", str(project_key))
 
             if m and n:
-              file_apache.write('"' + str(n.group(1)) + '", "' + str(m.group(1)) + '", ')
+              file_apache.write(str(n.group(1)) + '|')
 
 	  else:
             break
