@@ -13,15 +13,15 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 class EclipseSpider(BaseSpider):
-  name = "eclipse"
-  allowed_domains = ["bugs.eclipse.org"]
-  start_urls = ["https://bugs.eclipse.org/bugs/describecomponents.cgi"]
+  name = "libreoffice"
+  allowed_domains = ["www.libreoffice.org"]
+  start_urls = ["https://www.libreoffice.org/bugzilla/describecomponents.cgi"]
 
   def parse(self, response):
     hxs = HtmlXPathSelector(response)
-    file_eclipse = open("./eclipseProjects.txt", 'w')
+    file_office = open("./libreofficeProjects.txt", 'w')
  
-    for i in range(1, 200):
+    for i in range(1, 130):
 
       # Check the item exist or else we are out of bounds
       div = '/html/body/div[2]/table/tr[' + str(i) + ']/th/a'  
@@ -33,7 +33,7 @@ class EclipseSpider(BaseSpider):
         n = re.match(r".*\">(\w+)</a>.*", str(getdiv))
 
         if n:
-          file_eclipse.write(str(n.group(1)) + '|')
+          file_office.write(str(n.group(1)) + '|')
 
       else:
         break
