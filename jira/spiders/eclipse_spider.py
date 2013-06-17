@@ -19,7 +19,7 @@ class EclipseSpider(BaseSpider):
 
   def parse(self, response):
     hxs = HtmlXPathSelector(response)
-    file_eclipse = open("./eclipseProjects.txt", 'w')
+    file_eclipse = open("./eclipseProjectsHash.txt", 'w')
  
     for i in range(1, 200):
 
@@ -33,7 +33,7 @@ class EclipseSpider(BaseSpider):
         n = re.match(r".*\">(\w+)</a>.*", str(getdiv))
 
         if n:
-          file_eclipse.write(str(n.group(1)) + '|')
+          file_eclipse.write('"' + str(n.group(1)).upper() + '", "' + n.group(1) + '", ')
 
       else:
         break

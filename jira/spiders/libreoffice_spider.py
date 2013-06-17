@@ -19,7 +19,7 @@ class EclipseSpider(BaseSpider):
 
   def parse(self, response):
     hxs = HtmlXPathSelector(response)
-    file_office = open("./libreofficeProjects.txt", 'w')
+    file_office = open("./libreofficeProjectsHash.txt", 'w')
  
     for i in range(1, 130):
 
@@ -28,12 +28,11 @@ class EclipseSpider(BaseSpider):
       getdiv = hxs.select(div).extract()
 
       if getdiv:
-        print getdiv
         # Crapy regexps but it works
         n = re.match(r".*\">(\w+)</a>.*", str(getdiv))
 
         if n:
-          file_office.write(str(n.group(1)) + '|')
+          file_office.write('"' + str(n.group(1)).upper() + '", "' + str(n.group(1)) + '", ')
 
       else:
         break
